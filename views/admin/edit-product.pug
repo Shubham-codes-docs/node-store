@@ -1,0 +1,28 @@
+extends ../layouts/main-layout.pug
+
+block styles 
+       link(rel="stylesheet", href="/css/forms.css")
+
+
+block content
+     form(action=(editing?'/admin/edit-product':"/admin/product"), method="post" enctype="multipart/form-data") 
+      .form-control
+        label(for="title") Title
+        input(type="text" name="title" id="title" value=(editing ? product.title:''))
+      .form-control
+        label(for="image") Image
+        input(type="file" name="image" id="image" )
+      .form-control
+        label(for="price") Price
+        input(type="number" name="price" id="price" value=(editing ? product.price:''))
+      .form-control
+        label(for="description") Description
+        if(editing)
+         textarea(name="description",id='description',row="20") #{product.description}
+         input(type="hidden" name="prodId" value=product._id)
+         input(type="hidden" name="_csrf" value= csrfToken)
+         button.btn(type="submit",style="margin-top:1.2rem;") Update Product
+        else 
+         textarea(name="description",id='description',row="20")
+         button.btn(type="submit",style="margin-top:1.2rem;") Add Product
+         input(type="hidden" name="_csrf" value= csrfToken)

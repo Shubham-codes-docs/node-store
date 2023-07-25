@@ -1,0 +1,23 @@
+extends ../layouts/main-layout.pug
+block styles 
+  link(rel="stylesheet", href="/css/product.css")
+block content
+             if prods.length > 0
+                .grid
+                    each product in prods
+                        article.card.product-item
+                                header.class.card__header
+                                    h1.class.product__title #{product.title}
+                                .card__image
+                                    img(src="/"+product.imageUrl, alt="A Book")
+                                .card__content
+                                    h2.product__price #{product.price}
+                                    p.product__description #{product.description}
+                                .card__actions
+                                    a(href=`/admin/edit-products/${product._id}?edit=true`).class.btn Edit
+                                      input(type="hidden" name="_csrf" value= csrfToken) 
+                                      input(type="hidden" name="productId" value=product._id )
+                                    button(type='button' onclick="deleteItem(this)").class.btn Delete
+             else 
+                h1 No Books
+             script(src="/js/admin.js") 

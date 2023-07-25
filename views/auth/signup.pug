@@ -1,0 +1,24 @@
+extends ../layouts/main-layout.pug
+
+block styles 
+       link(rel="stylesheet", href="/css/forms.css")
+
+
+block content
+     if(errorMessage)
+       .usermessage.usermessage-error #{errorMessage}
+     form(action="/signup", method="post" class='login-form' noValidate) 
+      .form-control
+        label(for="name") Name
+        input(type="text" name="name" id="name" value=input.name)
+      .form-control
+        label(for="email") Email
+        input(type="email" name="email" id="email" value=input.email)
+      .form-control
+        label(for="password") Password
+        input(type="password" name="password" id="password" value=input.password )
+      .form-control
+        label(for="password") Confirm Password
+        input(type="password" name="cpassword" id="cpassword" value=input.cpassword ) 
+        input(type="hidden" name="_csrf" value= csrfToken)
+        button.btn(type="submit",style="margin-top:1.2rem;") SIGNUP

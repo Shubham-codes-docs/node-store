@@ -1,0 +1,17 @@
+extends ../layouts/main-layout.pug
+block styles 
+  link(rel="stylesheet", href="/css/product.css")
+block content
+             if orders.length > 0
+                ul 
+                 each order in orders 
+                   li.h1 #{order._id}   
+                   a(href=`/orders/${order._id}`) Invoice 
+                   ul 
+                    each p in order.products
+                     header.class.card__header
+                       h1.class.product__title #{p.product.title}
+                     .card__content
+                       h2.product__price #{p.quantity}
+             else 
+                h1 Nothing To Show!!
